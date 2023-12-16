@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handeling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtunderm <dtunderm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:37:46 by dtunderm          #+#    #+#             */
-/*   Updated: 2023/12/15 15:56:32 by dtunderm         ###   ########.fr       */
+/*   Updated: 2023/12/16 23:41:54 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_redirection_errors(t_node *head)
 						|| current->next->type == OPERATOR))
 				|| current->next == NULL))
 		{
-			printf("Syntax err, a redirector can't"
+			printf("Syntax err, a redirector can't "
 				"be after another or by itself\n");
 			return (-1);
 		}
