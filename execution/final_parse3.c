@@ -6,7 +6,7 @@
 /*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:46:17 by eamrati           #+#    #+#             */
-/*   Updated: 2023/12/15 20:13:18 by eamrati          ###   ########.fr       */
+/*   Updated: 2023/12/17 00:04:26 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	get_joined_single_exec_arg(t_node **linked_list, char ***single_execrdy)
 	while ((*linked_list) && (*linked_list)->data
 		&& !(*linked_list)->data[0] && (*linked_list)->type == ARG)
 		(*linked_list) = (*linked_list)->next;
-	if (*linked_list)
+	if (*linked_list && ((*linked_list)->type == ARG
+			|| (*linked_list)->type == 2 || (*linked_list)->type == CMD))
 		acc = _join(acc, (*linked_list)->data);
 	while ((*linked_list) && ((*linked_list)->type == QUOTE_ARG
 			|| (*linked_list)->type == ARG
