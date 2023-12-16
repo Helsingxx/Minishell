@@ -6,7 +6,7 @@
 /*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:43:34 by eamrati           #+#    #+#             */
-/*   Updated: 2023/12/15 20:09:36 by eamrati          ###   ########.fr       */
+/*   Updated: 2023/12/16 18:19:40 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,30 @@ char	*assemble_garbage(t_node **linked_list, int type_from)
 	return (fill);
 }
 
-void	get_garbage_by_type(t_node *rn_linked_list,
+void	get_garbage_by_type(t_node **rn_linked_list,
 		char **dont_be_this, char ***g_redirs, t_norminette *_)
 {
 	char	*sv;
 
 	sv = 0;
-	if (rn_linked_list && rn_linked_list->type == STDOUT_RD)
+	if ((*rn_linked_list) && (*rn_linked_list)->type == STDOUT_RD)
 	{
-		rn_linked_list = rn_linked_list->next;
-		sv = assemble_garbage(&rn_linked_list, STDOUT_RD);
+		(*rn_linked_list) = (*rn_linked_list)->next;
+		sv = assemble_garbage(rn_linked_list, STDOUT_RD);
 		if (!dont_be_this[2] || _ft_strcmp(sv, dont_be_this[2]))
 			g_redirs[0][_->x++] = sv;
 	}
-	if (rn_linked_list && rn_linked_list->type == APPEND)
+	if ((*rn_linked_list) && (*rn_linked_list)->type == APPEND)
 	{
-		rn_linked_list = rn_linked_list->next;
-		sv = assemble_garbage(&rn_linked_list, APPEND);
+		(*rn_linked_list) = (*rn_linked_list)->next;
+		sv = assemble_garbage(rn_linked_list, APPEND);
 		if (!dont_be_this[3] || _ft_strcmp(sv, dont_be_this[3]))
 			g_redirs[1][_->app++] = sv;
 	}
-	if (rn_linked_list && rn_linked_list->type == STDIN_RD)
+	if ((*rn_linked_list) && (*rn_linked_list)->type == STDIN_RD)
 	{
-		rn_linked_list = rn_linked_list->next;
-		sv = assemble_garbage(&rn_linked_list, STDIN_RD);
+		(*rn_linked_list) = (*rn_linked_list)->next;
+		sv = assemble_garbage(rn_linked_list, STDIN_RD);
 		if (!dont_be_this[0] || _ft_strcmp(sv, dont_be_this[0]))
 			g_redirs[2][_->in++] = sv;
 	}
@@ -76,7 +76,7 @@ void	get_them_forreal(t_node *rn_linked_list,
 	_.in = 0;
 	while (rn_linked_list && rn_linked_list->type != OPERATOR)
 	{
-		get_garbage_by_type(rn_linked_list, dont_be_this, g_redirs, &_);
+		get_garbage_by_type(&rn_linked_list, dont_be_this, g_redirs, &_);
 		if (rn_linked_list && (rn_linked_list->type == ARG
 				|| rn_linked_list->type == QUOTE_ARG
 				|| rn_linked_list->type == CMD
@@ -85,30 +85,30 @@ void	get_them_forreal(t_node *rn_linked_list,
 	}
 }
 
-void	count_garbage(t_node *rn_linked_list,
+void	count_garbage(t_node **rn_linked_list,
 				char **dont_be_this, t_norminette *_)
 {
-	if (rn_linked_list && rn_linked_list->type == STDOUT_RD)
+	if ((*rn_linked_list) && (*rn_linked_list)->type == STDOUT_RD)
 	{
-		rn_linked_list = rn_linked_list->next;
-		if ((!dont_be_this[2] && assemble_garbage(&rn_linked_list, STDOUT_RD))
-			|| _ft_strcmp(assemble_garbage(&rn_linked_list, STDOUT_RD),
+		(*rn_linked_list) = (*rn_linked_list)->next;
+		if ((!dont_be_this[2] && assemble_garbage(rn_linked_list, STDOUT_RD))
+			|| _ft_strcmp(assemble_garbage(rn_linked_list, STDOUT_RD),
 				dont_be_this[2]))
 			_->x++;
 	}
-	if (rn_linked_list && rn_linked_list->type == APPEND)
+	if ((*rn_linked_list) && (*rn_linked_list)->type == APPEND)
 	{
-		rn_linked_list = rn_linked_list->next;
-		if ((!dont_be_this[3] && assemble_garbage(&rn_linked_list, APPEND))
-			|| _ft_strcmp(assemble_garbage(&rn_linked_list, APPEND),
+		(*rn_linked_list) = (*rn_linked_list)->next;
+		if ((!dont_be_this[3] && assemble_garbage(rn_linked_list, APPEND))
+			|| _ft_strcmp(assemble_garbage(rn_linked_list, APPEND),
 				dont_be_this[3]))
 			_->app++;
 	}
-	if (rn_linked_list && rn_linked_list->type == STDIN_RD)
+	if ((*rn_linked_list) && (*rn_linked_list)->type == STDIN_RD)
 	{
-		rn_linked_list = rn_linked_list->next;
-		if ((!dont_be_this[0] && assemble_garbage(&rn_linked_list, STDIN_RD))
-			|| _ft_strcmp(assemble_garbage(&rn_linked_list, STDIN_RD),
+		(*rn_linked_list) = (*rn_linked_list)->next;
+		if ((!dont_be_this[0] && assemble_garbage(rn_linked_list, STDIN_RD))
+			|| _ft_strcmp(assemble_garbage(rn_linked_list, STDIN_RD),
 				dont_be_this[0]))
 			_->in++;
 	}
@@ -126,7 +126,7 @@ char	***get_garbage_redirs(t_node *rn_linked_list, char **dont_be_this)
 	_.in = 0;
 	while (rn_linked_list && rn_linked_list->type != OPERATOR)
 	{
-		count_garbage(rn_linked_list, dont_be_this, &_);
+		count_garbage(&rn_linked_list, dont_be_this, &_);
 		if (rn_linked_list && (rn_linked_list->type == ARG
 				|| rn_linked_list->type == QUOTE_ARG
 				|| rn_linked_list->type == CMD

@@ -6,7 +6,7 @@
 /*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:41:26 by eamrati           #+#    #+#             */
-/*   Updated: 2023/12/16 15:51:35 by eamrati          ###   ########.fr       */
+/*   Updated: 2023/12/16 17:46:35 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_substr(char *s, int start, int len)
 		return (NULL);
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
-	res = (char *)malloc(len + 1 * sizeof(char));
+	res = (char *)ft_calloc(sizeof(char), len + 1);
 	if (res == NULL)
 		return (NULL);
 	while (i < len)

@@ -6,7 +6,7 @@
 /*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 13:45:30 by eamrati           #+#    #+#             */
-/*   Updated: 2023/12/16 16:05:03 by eamrati          ###   ########.fr       */
+/*   Updated: 2023/12/16 21:54:18 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	call_heredocs(t_comparsed *cmds, int **fds)
 	while (x < cmds->cmd_count)
 	{
 		fds[x] = set_invalid(ft_calloc(sizeof(int), 5));
-		if (cmds->real_redirects[x][1]
+		if (cmds->real_redirects[x] && cmds->real_redirects[x][1]
 			&& cmds->heredocs[c] == cmds->real_redirects[x][1])
 		{
 			if (heredoc(cmds->real_redirects[x][1], &fds[x][1],
@@ -96,7 +96,7 @@ int	call_heredocs(t_comparsed *cmds, int **fds)
 				return (SYSCALLFAIL);
 			c++;
 		}
-		else if (cmds->real_redirects[x][1]
+		else if (cmds->real_redirects[x] && cmds->real_redirects[x][1]
 			&& cmds->heredocs[c] != cmds->real_redirects[x][1])
 			if (fake_skip(&c, &x, cmds, fds))
 				return (SYSCALLFAIL);

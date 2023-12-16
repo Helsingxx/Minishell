@@ -6,7 +6,7 @@
 /*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:02:14 by eamrati           #+#    #+#             */
-/*   Updated: 2023/12/16 16:19:23 by eamrati          ###   ########.fr       */
+/*   Updated: 2023/12/16 18:46:33 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	alloc_wrap_env(t_env *env)
 	}
 }
 
-void	start_cmd(t_node *head, t_env *l_env, char **envp)
+void	start_cmd(t_node *head, t_env **l_env, char **envp)
 {
 	t_comparsed	*parsed;
 
 	parsed = parsed_single_cmd(head, count_cmd(head), exit_status(YIELD), envp);
-	resolve_path(head, l_env);
-	parsed->environment = l_env;
-	if (execute_list(parsed, &l_env) == SYSCALLFAIL)
+	resolve_path(head, *l_env);
+	parsed->environment = *l_env;
+	if (execute_list(parsed, l_env) == SYSCALLFAIL)
 		parsed->exit_status = 1;
 	exit_status(parsed->exit_status);
 	restore_fds(0);
@@ -83,7 +83,7 @@ void	main_loop(t_node *head, char **envp)
 			lexer(input, &head, l_env);
 			set_redirect_in_nodes(head);
 			if (!error_all_check(head))
-				start_cmd(head, l_env, envp);
+				start_cmd(head, &l_env, envp);
 			l_env = duplicate_env(l_env);
 			fail(0, 0);
 			alloc_wrap_env(l_env);

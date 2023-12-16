@@ -6,7 +6,7 @@
 /*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:48:06 by eamrati           #+#    #+#             */
-/*   Updated: 2023/12/15 14:57:38 by eamrati          ###   ########.fr       */
+/*   Updated: 2023/12/16 21:53:32 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,15 @@ int	launch_cmd(t_ex *_, t_comparsed *cmds, t_env **env)
 
 int	_redirs(t_ex *_, t_comparsed *cmds)
 {
-	if (apply_garbage_redir(cmds->garbage_redirects_arr[_->x])
+	if (cmds->garbage_redirects_arr[_->x]
+		&& apply_garbage_redir(cmds->garbage_redirects_arr[_->x])
 		== ABORTCURRENTCMD)
 	{
 		(close(_->_pipe[0]), 1) && (close(_->_pipe[1]), 1) && (_->sv_next = -2);
 		return (ABORTCURRENTCMD);
 	}
-	else if (set_redirects(cmds->real_redirects[_->x],
+	else if (cmds->garbage_redirects_arr[_->x]
+		&& set_redirects(cmds->real_redirects[_->x],
 			cmds->fds[_->x]) == ABORTCURRENTCMD)
 	{
 		(close(_->_pipe[0]), 1) && (close(_->_pipe[1]), 1) && (_->sv_next = -2);
@@ -113,6 +115,7 @@ int	execute_list(t_comparsed *cmds, t_env **env)
 		restore_fds(0);
 		_.x++;
 	}
+	restore_fds(0);
 	wait_for_childs(&_, cmds);
 	return (0);
 }

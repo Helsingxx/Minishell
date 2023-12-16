@@ -6,7 +6,7 @@
 /*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:28:10 by eamrati           #+#    #+#             */
-/*   Updated: 2023/12/15 14:34:14 by eamrati          ###   ########.fr       */
+/*   Updated: 2023/12/16 18:14:45 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	setup_child(t_ex *_, t_comparsed *cmds, t_env **env)
 	cmds->uptodate_env = env_toarray(*env);
 	_->chld_pid = fork();
 	if (_->chld_pid == -1)
-		return (SYSCALLFAIL);
+		return (close_fds(cmds->fds[_->x]),
+			close(_->_pipe[0]), close(_->_pipe[1]), SYSCALLFAIL);
 	if (cmds->exec_ready[_->x] == _->last_proc)
 		_->pid_last = _->chld_pid;
 	return (0);

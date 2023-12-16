@@ -6,7 +6,7 @@
 /*   By: eamrati <eamrati@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 11:43:25 by dtunderm          #+#    #+#             */
-/*   Updated: 2023/12/16 14:51:16 by eamrati          ###   ########.fr       */
+/*   Updated: 2023/12/16 17:40:07 by eamrati          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*get_env_var_ex(char *input, int i)
 char	*get_env_var(char *input, int *i, t_env *l_env)
 {
 	t_make_env	*_;
-	char		*result;
 
 	_ = create_m_e();
 	(*i)++;
@@ -65,7 +64,7 @@ char	*get_env_var(char *input, int *i, t_env *l_env)
 		ft_strndup(&input[_->start - _->dol], _->dol));
 	ft_strcat(_->result, _->var_value);
 	ft_strcat(_->result, _->delim);
-	result = ft_strdup(_->result);
+	_->result = ft_strdup(_->result);
 	return (_->result);
 }
 
