@@ -1,5 +1,6 @@
 ## Info: <br />
-Compile the program with Make. If you need to change the compiler rules, add your flags to the CFLAGS variables. c
+Compile the program with Make. <br />
+If you need to change the compiler rules, add your flags to the CFLAGS variables. <br />
 If you need to change the linker rules, add them to LDFLAGS. <br />
 You will need to install the GNU readline library in order to use this program. <br />
 <br />
