@@ -24,18 +24,18 @@ minishell$: pwd
 minishell$: cat << x
 >hello$HOME
 >x
-hello/USER/helsing <br />
-minishell$: cat << "x" <br />
+hello/USER/helsing
+minishell$: cat << "x"x
 >$USER
 >x
 $USER
 minishell$: echo hey > a > b > c > d > e
 minishell$: rm a b c d
 minishell$: cat < e
-... <br />
-minishell$: exit 255 <br />
-sh$: echo $? <br />
-255 <br />
+...
+minishell$: exit 255
+sh$: echo $?
+255
 [EOF]
 ```
  
